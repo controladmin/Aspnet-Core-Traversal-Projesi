@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+<!--
+    Sayfa: Manin Dafault index
+-->
+<h1>Index</h1>
+
+
+<!--shared altındaki _SliderPartial klasörüdür çünkü onun altında Default.cshtml var burdaki kodları oraya taşıdık-->
+@await Component.InvokeAsync("_SliderPartial")
+
+<!--shared altındaki _PopularDestinations klasörüdür çünkü onun altında Default.cshtml var burdaki kodları oraya taşıdık-->
+@await Component.InvokeAsync("_PopularDestinations")
+
+
+<!--shared altındaki _Statistic klasörüdür çünkü onun altında Default.cshtml var burdaki kodları oraya taşıdık-->
+@await Component.InvokeAsync("_Statistic")
+
+<!--shared altındaki _Feature klasörüdür çünkü onun altında Default.cshtml var burdaki kodları oraya taşıdık-->
+@await Component.InvokeAsync("_Feature")
+
+<!--shared altındaki _SubAbout klasörüdür çünkü onun altında Default.cshtml var burdaki kodları oraya taşıdık-->
+@await Component.InvokeAsync("_SubAbout")
+
+<!--shared altındaki _Testimonial klasörüdür çünkü onun altında Default.cshtml var burdaki kodları oraya taşıdık-->
+@await Component.InvokeAsync("_Testimonial")
+
+
+
+

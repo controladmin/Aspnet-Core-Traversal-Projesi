@@ -1,0 +1,56 @@
+﻿@model List<GetAllDestinationQueryResult>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+
+<style>
+    tr:nth-child(odd) {
+        background: #fffacd;
+    }
+
+    tr:nth-child(even) {
+        background: #fdf5e6;
+    }
+
+    .table thead tr th {
+        background: #ff7f50;
+        color: white !important;
+    }
+</style>
+
+
+
+<h1>CQRS Tur Rotası Verileri</h1>
+<br />
+<table class="table table-striped table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Şehir</th>
+            <th>Kapasite</th>
+            <th>Konaklama Süresi</th>
+            <th>Fiyat</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            sayac++;
+            <tr>
+                <td>@sayac</td>
+                <td>@item.City</td>
+                <td>@item.Capasity</td>
+                <td>@item.DayNight</td>
+                <td>@item.Price ₺</td>
+                <td><a href="/Admin/DestinationCQRS/DeleteDestination/@item.ID" class="btn btn-outline-danger">Sil</a></td>
+                <td><a href="/Admin/DestinationCQRS/GetDestinationById/@item.ID" class="btn btn-outline-primary">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Admin/DestinationCQRS/AddDestination/" class="btn btn-outline-warning">Yeni Tur Rotası Girişi</a>
+

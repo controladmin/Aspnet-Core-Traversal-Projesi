@@ -1,0 +1,47 @@
+﻿@model List<AppUser>
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+
+<style>
+    tr:nth-child(odd) {
+        background: #bc8f8f;
+    }
+
+    tr:nth-child(even) {
+        background: #c0c0c0;
+    }
+
+    .table thead tr th {
+        background: #7fffd4;
+        color: black !important;
+    }
+</style>
+
+
+<h1>Kullanıcı Listesi</h1>
+<br />
+<table class="table table-striped table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Kullanıcı Adı</th>
+            <th>Rol Ata</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@item.UserName</td>
+                <td><a href="/Admin/Role/AssignRole/@item.Id" class="btn btn-warning">Rol Ata</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

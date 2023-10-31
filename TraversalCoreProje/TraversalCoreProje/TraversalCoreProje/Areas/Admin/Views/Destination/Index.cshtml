@@ -1,0 +1,64 @@
+﻿@using EntityLayer.Concreate
+@model List<Destination>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+
+
+<style>
+    tr:nth-child(odd) {
+        background: #f5f5f5;
+    }
+
+    tr:nth-child(even) {
+        background: #c0c0c0;
+    }
+
+    .table thead tr th {
+        background: #708090;
+        color: white !important;
+    }
+</style>
+
+
+@*bu index Areas altındaki admin altındaki  Contollers da yer alan DestinationController indexidir*@
+<h1>Tur Rotaları</h1>
+
+<table class="table table-bordered table table-hover text-center">
+    @*<caption>Tur Rotaları</caption>*@
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Şehir</th>
+            <th>Fiyat</th>
+            <th>Kapasite</th>
+            <th>Sitede Gör</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+            @*<th>Detaylar</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            sayac++;
+            <tr>
+                @*<td>@item.DestinationID</td>*@
+                <td>@sayac</td>
+                <td>@item.City</td>
+                <td>@item.Price</td>
+                <td>@item.Capacity</td>
+                <td><a href="/Destination/DestinationsDetails/@item.DestinationID" class="btn btn-outline-warning">Sitede Gör</a></td>
+                <td><a href="/Admin/Destination/DeleteDestination/@item.DestinationID" class="btn btn-outline-danger">Sil</a></td>
+                <td><a href="/Admin/Destination/UpdateDestination/@item.DestinationID" class="btn btn-outline-primary">Güncelle</a></td>
+                @*<td><a href="#" class="btn btn-outline-dark">Detaylar</a></td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Admin/Destination/AddDestination/" class="btn btn-outline-primary">Yeni Tur Rotası Ekleme</a>
+
+
+

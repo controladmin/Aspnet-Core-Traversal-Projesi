@@ -1,0 +1,57 @@
+﻿@using EntityLayer.Concreate
+@model List<Comment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+
+<style>
+    tr:nth-child(odd) {
+        background: #b0c4de;
+    }
+
+    tr:nth-child(even) {
+        background: #ffffe0;
+    }
+
+    .table thead tr th {
+        background: #ff4500;
+        color: white !important;
+    }
+ 
+</style>
+
+
+<h1>Yorum Listesi</h1>
+<table class="table table-bordered table table-hover text-center" style="border-collapse:collapse;">
+    @*<caption>Yorum Listesi Tablosu</caption>*@
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Kullanıcı</th>
+            <th>Blog</th>
+            <th>Tarih</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+   <tbody>
+       @foreach(var item in Model)
+       {
+           sayac++;
+       <tr>
+           @*<td>@item.CommentID</td>*@
+           <td>@sayac</td>
+           <td>@item.CommentUser</td>
+           @*bu şekilde kullanmaya izin vermiyor entity tarafında tanımlama yapmak gerek city bilgisini vermiyor böyle
+        ICommentDal kısmında da metot tanımlıyoruz  EFCommentDal içerisinde de metot tanımlıyoruz sonra Business tarafında da
+          ICommentService içinde çağırıyoruz CommentMenager içinde de çağırıyoruz*@
+           <td>@item.Destination.City</td>
+           <td>@(((DateTime)item.CommentDate).ToString("dd-MM-yyyy"))</td>
+           <td><a href="/Admin/Comment/DeleteComment/@item.CommentID" class="btn btn-outline-danger">Sil</a></td>
+           @*<td><a href="/Admin/Comment/DeleteComment/@item.CommentID" class="btn btn-outline-danger" onclick="confirm('Silmek istediğinizden eminmisiniz?')">SİL</a></td>*@
+       </tr>
+       }
+   </tbody>
+</table>
+

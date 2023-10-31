@@ -1,0 +1,66 @@
+﻿@model List<AppRole>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+
+
+<style>
+    tr:nth-child(odd) {
+        background: #ffdead;
+    }
+
+    tr:nth-child(even) {
+        background: #fdf5e6;
+    }
+
+    .table thead tr th {
+        background: #006400;
+        color: white !important;
+    }
+</style>
+
+
+
+<h1>Rol Listesi</h1>
+
+@if (Model.Count > 0)
+{
+    <table class="table table-bordered table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Rol Adı</th>
+                <th>Rolü Sil</th>
+                <th>Rolü Güncelle</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+            @foreach (var item in Model)
+            {
+                sayac++;
+                <tr>
+                    <td>@sayac</td>
+                    <td>@item.Name</td>
+                    <td><a href="/Admin/Role/DeleteRole/@item.Id" class="btn btn-outline-danger">Sil</a></td>
+                    <td><a href="/Admin/Role/UpdateRole/@item.Id" class="btn btn-outline-primary">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        <span class=" alert alert-danger form-control">Herhangi bir rol bulunamadı!!!</span>
+    </div>
+}
+<div>
+    <span><a href="/Admin/Role/CreateRole/" class="btn btn-outline-info">Yeni Rol Ekleme</a></span>
+    <span><a href="/Admin/Role/UserList/" class="btn btn-outline-dark">Kullanıcı Listesi</a></span>
+
+</div>
+

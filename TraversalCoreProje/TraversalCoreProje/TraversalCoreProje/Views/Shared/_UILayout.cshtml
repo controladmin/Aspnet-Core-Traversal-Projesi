@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!--
+Author: Yazılım Kodlama
+Date: 20.09.2023
+-->
+<!doctype html>
+<html lang="zxx">
+<!--head kısmını buradan kesip _HeaderPartial içine aktardık oradan çağıracağız
+açtığımız _HeaderPartial layoutu burada çağırıyoruz Async olduğu için başına await koymamız gerek yoksa çalışmaz-->
+@await Html.PartialAsync("/Views/LayoutPartial/_HeaderPartial.cshtml")
+<body>
+    <!-->header
+    Burada Header alanı vardı onu partiallayout içine attık ve burada çağırıyoruz içinde Navbarlar vardı-->
+    @await Html.PartialAsync("/Views/LayoutPartial/_NavbarPartial.cshtml")
+    <!-->Burada RenderBody yazdık index sayfası burada açılıyor sonra alt kısımda footer devam ediyor-->
+    @RenderBody()
+    <!--Burada Footer alanı vardı kesip _FooterPartial içine attık ve burada çağırıyoruz-->
+    @await Html.PartialAsync("/Views/LayoutPartial/_FooterPartial.cshtml")
+    <!--burada scriptler vardı kestik _ScriptPartial içine attık ve burada çağırıyoruz-->
+    @await Html.PartialAsync("/Views/LayoutPartial/_ScriptPartial.cshtml")
+    @*@await Component.InvokeAsync("Notyf")*@
+    @await Component.InvokeAsync("NToastNotify")
+
+</body>
+
+</html>
+
+
+

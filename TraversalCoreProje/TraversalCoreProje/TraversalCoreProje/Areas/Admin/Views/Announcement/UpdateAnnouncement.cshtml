@@ -1,0 +1,29 @@
+﻿@model AnnouncementUpdateDTO
+@{
+    ViewData["Title"] = "UpdateAnnouncement";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*link rel=stylesheet href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.js>*@
+<h1>Duyuru Güncelleme Sayfası</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="AnnouncementID" />
+    <label>Duyuru Başlığı</label>
+    <input type="text" class="form-control" placeholder="Duyuru Başlığı" asp-for="Title" />
+    <span asp-validation-for="Title" class="text-danger"></span>
+    <br />
+    <label>Duyuru İçeriği</label>
+    <input type="text" class="form-control" placeholder="Duyuru İçeriği" asp-for="Content" />
+    <span asp-validation-for="Content" class="text-danger"></span>
+    <br />
+    <button id="btnupdate" class="btn btn-outline-primary">Duyuruyu Güncelle</button>
+</form>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    document.getElementById("btnupdate").addEventListener("click", function{
+        toastr.success("Duyuru Güncellendi");
+    });
+</script>*@
+

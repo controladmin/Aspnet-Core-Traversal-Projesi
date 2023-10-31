@@ -1,0 +1,48 @@
+﻿@model TraversalCoreProje.Models.MailRequest
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*MailController index sayfası*@
+
+<form method="post">
+    <div class="form-group">
+        @Html.Label("Gönderen Ad Soyad")
+        <input type="text" asp-for="Name" class="form-control" required=""/>
+        @*<span asp-validation-for="Name" class="text-danger"></span>*@
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Gönderici Mail Adresi")
+        <input type="text" asp-for="SenderMail" class="form-control" required="" />
+        @*<span asp-validation-for="SenderMail" class="text-danger"></span>*@
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Gönderici Mail Şifresi Çift Doğrulama Kodu Gmail")
+        <input type="text" asp-for="Password" class="form-control" required=""/>
+        @*<span asp-validation-for="Password" class="text-danger"></span>*@
+    </div>
+    <div class="form-group">
+        @Html.Label("Alıcı Mail Adresi")
+        <input type="text" asp-for="ReceiverMail" class="form-control" required="" />
+        @*<span asp-validation-for="ReceiverMail" class="text-danger"></span>*@
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Konu Başlığı")
+        <input type="text" asp-for="Subject" class="form-control" required=""/>
+        @*<span asp-validation-for="Subject" class="text-danger"></span>*@
+    </div>
+    <br />
+    <br />
+    <div class="form-group">
+        @Html.Label("Mesaj İçeriği")
+      <textarea cols="30" rows="5" class="form-control" asp-for="Body" required=""></textarea>
+        @*<span asp-validation-for="Body" class="text-danger"></span>*@
+    </div>
+    <br />
+    <button class="btn btn-outline-info">Mail Gönder</button>
+</form>
+

@@ -1,0 +1,296 @@
+add-migration mig_add_destination_details
+
+
+
+ASP.NET core web app(model-view-controller) olacak şekilde projeyi oluşturuyoruz
+
+.NET 5.0 ullanıldı framework
+
+Code First Yapısı Kullanılacak --> Migrations
+
+N Tier Arc
+
+Entity Layer           --> Entityler tanımlanacak sql--> table-- csharp--> class, sql--> column --- csharp--> property
+
+Data Access Layer      --> Bu katmanda veri tabanıo crud işlemleri için alt yapı hazırlanacak repository design pattern
+                           crud --> create,read,update,delete
+
+Business Layer         --> Validasyonların kontrolü yapılacak
+
+Presentation Layer     --> Sunum katmanı controller tarafındaki backend kodları ve projenin UI kısmı bu katmanda yer alacak
+
+add new project diyerek class library .NET Core seçiyoruz class library oluşturuyoruz
+
+NuGet içinde 4 tane paket ekliyoruz EntityLayer , DataAccessLayer , TraversalCoreproje BusinessLayer için yüklüyoruz bu paketleri
+
+1. Microsoft.EntityFrameworkCore
+2. Microsoft.EntityFrameworkCore.Design
+3. Microsoft.EntityFrameworkCore.Tools
+4. Microsoft.EntityFrameworkCore.SqlServer
+
+EntityLayer ve diğer alanların altında Dependencies altında packages diye alan var oradan yüklenen paketleri görebiliriz
+
+DbContext paketini kullanmak için Microsoft.EntityFrameworkCore paketini eklemek gerek 
+
+DataAccessLayer içinde sadece EntityLayer olacak DataAccess üzerine gelip sağ click add--> project referance seçeriz sadece EntityLayer seçilir
+
+BusinessLayer içinde EntityLayer ve DataAccessLayer olacak add--> poject reference EntityLayer ve DataAccessLayer seçilir
+
+TravelsCoreProje içinde üçüde olacak Add--> project reference ve üçüde seçilip eklenir
+
+Not = tablolar Sqlde manual açmadık visual studioda tabloları oluşturduk migration ile sql kısmında kendi oluşturacak DbSet ile biz tabloları oluşturduk
+
+package menager console ekranından migration yaparak tabloları sqldede oluşturuyoruz context sınfı hangi katman içerisinde ise o katmanı seçmemiz gerek
+
+console ekranına add-migration mig1 yazıyoruz hata yoksa migration oluşturmak için bir önizlme sayfası oluşturacak bu işlemden sonra update-database diyerek bu çalışmayı databasede tablo olarak oluşturuyoruz
+bu işlemden sonra sqlde tablolar oluşmuş oluyor
+
+BusinessLayer ve TraversalCoreProje içine NuGet paketlerinden FluentValidation ve FluentValidation.AspNetCore paketlerini yüklüyoruz validation işlemleri için
+
+TraversalCoreProje altındaki controller içine add-->controller diyerek  MVC Controller Empty diye boş bir Controller ekliyoruz
+
+TraversalCoreProje altındaki views altındaki shared içine boş bir view ekliyoruz layout olacak Razor View ekliyoruz
+
+@RenderBody = eklenmiş olduğu layout içinde çalışacak olan sayfaların nerede konumlanacağını belirler
+
+controller içinde index üzerine sağ click add view deyip view ekliyoruz fakat bu view hangi layout ile çalışacakse o layoutu belirtiyoruz
+
+Tema dosyasını wwwroot içine dosya olarak atıyoruz
+
+_UILayout içine wwwroot içine attığımız index dosyasındaki kodları yapıştırdık o kodları layout olarak kullanacağız
+
+css kodlarının doğru çalışması için biz asset ekli default yapısında biz doğru çalışması için Traversal-Starter ekliyoruz başına çünkü css ve javascript kodları bu dosya içinde
+
+wwwroot altındaki view altına LayoutPartial diye bir klasör ekliyoruz ve bunun içine _HeaderPartial diye bir view ekliyoruz ve bunu ana layout içinde head'in hemen altında çağırıyoruz
+
+Ana layout içindeki Head kısmını kesip _Headerpartial içine atıyor head kısmını bu _HeaderPartial içinden çağıracak 
+
+LayotPartial içine _NavbarPartial view layout ekliyoruz bunun içine ana layouttaki Navbar eklentilerini ekleyeceğiz
+
+LayoutPartial içine footer içinde _FooterPartial ekliyoruz onu partial layout içine alıyoruz amaç ana layoutu temiz bırakıp partial layoutlar ile çağırmak ve daha temiz kod yazmak
+
+Ana layouttaki scriptleride _ScriptPartial içine alıp ana layoutta çağırıyoruz
+
+ViewComponent kullanıyoruz aspnet core ile gelen bir özelliktir
+
+wwwroot altına ViewComponent diye bir klasör ekliyoruz ve onun altına Default diye bir klasör ekleyip burada index.cshtml kodlarını parçalara ayıracağım classları tanımlıyoruz daha sonra bunları shared altında Component altında
+klasörler açıp içine default partial viewler ekliyoruz veindex.cshtml kodlarını buralara taşıyoruz
+
+shared klasörü altına Components diye bir klasör ekliyoruz ve içine parçalara ayıracağımız alanları klasör olarak ekleyip içlerine Default adında bir partial view ekliyoruz 
+index.cshtml içindeki kodları parça parça block şekline ayırıyoruz
+
+Ana layoutta parçalara ayırma işlemini index.cshtml içinde yapacağız fazla kod karmaşıklığını azaltmak için
+
+ViewData = Controller sınıfından view sayfalarına viewdatadictionary sınıfı ile veri taşınır.
+ViewData ViewDatadictionary sınıfından türetilen bir dictionary nesnesidir. Dictionary mantığıyla kurgulanmıştır. Veri transfer işlemlerinde "key-value" eşleşmesinden faydalanır. Key değeri olarak string tanımlamayı kabul eder.
+- ViewData kullanarak Controller üzerinden View tarafına veri çekmek için kullanılır. Tersi yapılamaz.
+- Sadece geçerli istek sırasında okunabilir sonrasında yönlendirmeden sonra değeri null olacaktır.
+- Veriyi değişkene almak için tip dönüşümü yapmamız gerekli.
+
+
+ViewBag = - ViewBag, C# 4.0 ile gelen dinamik veri tipi özelliklerinden faydalanır, hataları runtime zamanında alınır.
+- Temelde ViewData gibi Controller üzerinden View tarafına veri çekmek için kullanılır.
+- Sadece geçerli istek sırasında okunabilir.
+- Yönlendirme sonrasında kendini imha eder, null değer alır.
+- Veriyi değişkene almak için tip dönüşümü yapmanız gerekmez.
+
+
+TempData = ViewData ile aynı kullanımdadır. TempDataDictionary Key-Value olarak kurgulanmıştır. Diğer transfer yapılarına nazaran TempData veriyi Request bazlı saklamaz.
+- TempData üzerindeki veriyi üçüncü Request’e aktarmak istiyorsak Keep() metodunu kullanmalıyız. Bu şekilde TempData LifeCycle kısa bir süre uzamış olur.
+- TempData kullanımı öncesinde ViewData’da olduğu gibi TypeCast işlemi yapmalıyız.
+- Farklı metotlardan çağırıp kullanabiliriz.
+
+Controller altına destination controller ekledik destination controller sayfasında index'e sağ clik yapıp razor view ekledik layout olarak ana layoutu kullanacak
+ 
+index sayfalarında @using EntityLayer.Concreate yazmadan @model list<paramtre> yazmank için sadece @using EntityLayer.Concreate bu ifadeyi _ViewImports.cshtml içine yazarsak sadece @model ifadesini tek başına kullanabiliriz
+
+Identity için 2 tane paket kuruyoruz
+
+1. Microsoft.AspNetCore.Identity
+
+2. Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+Solution altında Startap.cs dosyası var onun içinde bu kısma
+
+public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<Context>(); bu alanı ekliyoruz
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>(); bu alanı ekliyoruz
+            services.AddControllersWithViews(); 
+
+             bunuda ekliyoruz kullanıcı login oluğunda ilgili alanlara gitmesi için
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            services.AddMvc();  bu alanıda ekliyoruz
+        }
+
+
+Model klasörünün içine class tanımlıyoruz UserRegisterViewModel diye bir class açarız
+
+Model klasörü içine CustomerIdentityValidator diye class açarız signUp sayfasında paralo ile ilgili uyarıları türkçe verdirmek için kodlar yazarız
+
+traversalCoreProje altına Areas adında bir klasör açarız ve sağ click add ile area ekleriz mvc area adına member veririz bu area aracılığı ile sisteme ayıt olan üyelerin controller işlemleri ayrı olarak yapacağız
+
+startup.cs üstüne ScaffoldingReadMe.txt adında bir dosya oluşturuyor onun içindeki kodu alıp startup.cs içine en alta yapıştırıyoruz
+
+bu kodu startup.cs içine en alta yapıştırıyoruz
+ app.UseEndpoints(endpoints =>
+        {
+          endpoints.MapControllerRoute(
+            name : "areas",
+            pattern : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+          );
+        });
+
+View altına MemeberLayoutPartial Ekliyoruz _UserLayout içindeki kodları partiallara ayırmak için
+
+Model klasörü altına login işlemlerini kontrol etmek için UserSignInViewModel adında bir clas ekliyoruz
+
+
+Areas klasörü içindeki controller indexlerinde asp-for çalışması için _ViewImports.cshtml dosyasını kopyalayıp areas klasörü altındaki view klasörü içine atıyoruz taghelper çalışması için 
+yoksa asp-for="" tırnak içine propertyleri yazarken otomatik tamamlama yapmaz tanımaz
+
+Lazy Loading = sayfada yer alan bir ögenin ihtiyaç duyulmadığı takdirde çağrılmaması prensibi ile çalışır yani bir nesne örneğinin gerçekten ihtiyaç duyulacağı ana kadar alınmaması ve bekletilmesi amacıyla kullanılır. 
+Bu yöntemde veriler sorguya bağlı olarak çekilir ve veri setinin içindeki tüm dataları yüklemek yerine kullanılacağı an tekrar sorgu atar ve veriyi çeker.
+
+Eager Loading =Lazy Loading’in tam tersi yönde çalışır. Kullanacağımız nesneleri, nesnenin ihtiyaç anından çok önce yaratır ve bekletir. Eager loading Linq sorgusu çalıştırıldığında verilerin tamamını yükler ve hafızaya alır.
+
+Admin paneli için Areas klasörüne sağ click add diyoruz açılan pencereden area seçip ismine Admin diyerek kaydediyoruz
+
+Normal Controller altına AdminController ekledik _AdminLayout içindeki alanları partial olarak Views altındaki admin klasöründe oluşturulan viewlerin içine partial olarak taşıdık sonra _AdminLayout sayfasıda partial olarak çağırdık
+
+startup içine app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404","?code={0}"); bu kodu ekledik kendi hata sayfamıza yönlendirme yapması için hata olunca sayfa bulunamayınca
+
+HomeController içine kodlar eklendi hata loglarını tutmak için ve startup içine aşağıdaki kodlar eklendi
+            {
+                x.ClearProviders();
+                x.SetMinimumLevel(LogLevel.Debug);
+                x.AddDebug();
+            });
+
+TraversalLogProje'ye Menage NuGet içinden Serillog.Extensions.Logging.File paketini ekliyoruz startupta Confiure metodu içinde parametre olarak ILoggerFactory interface'ni ekliyoruz 
+traversalCoreProje altına Logs adında bir klasör ekliyoruz logları tutmak için Logs klasör yolunu ve adını biz verdik 
+
+TraversalCoreProje içine Menager NuGet eklemesinden EPPlus kütüphanesini ekliyoruz excell için kullanacağız ClosedXML paketinide yüklüyoruz
+
+pdf raporlar için NuGet Menagerden iTextSharp.LGPLv2.Core olan paketi yüklüyoruz
+
+mail ayarları için MailKit paketini NuGet'ten yüklüyoruz
+
+solition üzerine sağ click new project classlibrary ekliyoruz ismini DTOLayer veriyoruz Model klasörü içineki classları DTOs içine taşıyacağız
+
+Proje Auto Mapper kütüphanesi NuGet alanından yüklüyoruz AutoMapper.Extensions.Microsoft.DependencyInjection paketini yüklüyoruz
+
+startup kısmına  services.AddAutoMapper(typeof(Startup)); bukodu ekliyoruz
+
+startup içine oluşturulan DTO'ları ekliyoruz
+
+Yeni bir proje açıyoruz api projesi olarak aspnet core web api ekliyoruz içine web projesi olarak traversal projesi ile api üzerinden haberleşecek
+
+Controller içine yeni bir Controller ekliyoruz ApiController olacak
+
+https://rapidapi.com/hub sitesinden veri çekeceğiz bu siteye önce üye oluyoruz aylık 500 api ücretsiz olarak sunuyor
+
+CQRS (Command Query Responsibility Segregation)
+
+CQRS kullanırken Handler sınıfını startup içinde tanımlıyoruz
+
+Cors ana odağı write (yazma) ve read(okuma) sorumluluklarının ayrıştırılmasına dayanan bir mimari tasarımdır
+
+Commands = objenin veya sistemin durumunu değiştirir yeni bir veri eklemek güncellemek silmek gibi insert update delete
+
+Queries = sadece sonucu geriye döner herhangi bir objenin veya sistemin durumunu değiştirmez list listgetbyid gibi
+
+Cors ne zaman kullanılmalı
+
+1. birbirinden ayrı sistemlerde olası bir servisin hata vermesi durumunda bu hatanın sistem akışına olumsuz yönde etkisi olmuyorsa kullanılabilir
+
+2. kompleks iş kurallarının olabileceği veya iş kurallarının sık sık değiştiği yapılarda kullanılabilir
+
+3. yüksek veri trafiğinin olduğu sistemlerde kullanılabilir
+
+Cors ne zaman kullanılmamalı
+
+1. iş kurallarının basit ve çok değişmediği sistemlerde
+
+2. basit crud işlemlerinin yapıldığı sistemlerde
+
+AsNoTracking() =  sorusuna yanıt olarak ; Entity'ler üzerindeki işlemler sürekli izlenir. Bir Entity'de değişiklik, güncelleme yapıldıysa SaveChanges() metodu ile bu değişiklikler veritabanına yansıtılır.
+Bu şekilde entity üzerindeki değişiklik kalıcı hale getirilir.Fakat biz herzaman entity'ler üzerinde değişiklik yapmayız. Çoğu zaman sadece okumaya dayalı işlemler yaparız. 
+Varsayılan olarak Enitity Framework üzerinde yaptığımız işlemlerde bu "takip" aktif durumdadır. Çoğu zamanda okuma işlemi yaptığımız için bu performans kaybına yol açar.
+İşte bu durumda izleme yapmadan, sadece okunabilir işlemler için AsNoTracking kullanılır.  AsNoTracking kullanıldığında Entity üzerinde değişiklik var mı yok mu  Context tarafından izlemenmez.
+
+MediatR kütüphanesini ekliyoruz MediatR.Extensions.Microsoft.DependencyInjection kütüphanesini ekliyoruz
+
+Destination sınıfını CQRS ile ypatık Guide sınıfını ise MediatR ile yapacağız MediatR sınıfını startup içerisinde tanımlıyoruz
+
+services.AddAutoMapper(typeof(Startup)); = 
+
+Unit Of Work Context sınıfında SaveChange() metodunu başka bir interface içinde tanımlayıp çağırmak için kullanıyoruz
+
+SignalR projeye eklenmesi = normal http bağlantıda client server iletişimi her istekte yenilenirken SignalR client server arasında sürekli bir bağlantı sağlanır 
+RPC (Remote Procedure Calls) özelliği ile tarayıcımızda client tarafındaki javascripti server tarafında çağırırbir veride değişiklik olduğunda server bir javascript metodununu çağırarak bunu client yada clientlere haber verir
+ancak http protokolü olsaydı bu güncellemeyş yapmak için sayfayı yenilememiz gerekirdi
+
+bağlantı adresini SignalR altında appsettings.json dosyası var onun içinde yapıyoruz
+
+SignalR içine NuGet sayfasından Paketler yüklüyoruz
+Microsoft.EntityFramework.Core kütüphanesini yüklüyoruz
+Microsoft.EntityFramework.Core.Design kütüphanesini yüklüyoruz
+Microsoft.EntityFramework.Core.Tools kütüphanesini yüklüyoruz
+Microsoft.EntityFramework.Core.SqlServer kütüphanesini yüklüyoruz
+postgresql kullandık bu kısımda NpgSql kütüphanesinide indiriyoruz
+NpgSql.EntityFrameworkCore.PostgreSql kütüphanesini kuruyoruz
+Postgresql portu 5432'dir
+
+proje içine yeni bir proje ekiyoru web app(view-model-controller) SignalRConsume etmek için
+SignalRConsume projesine Client-Side Library ekliyoruz SignalRConsuma sağ click açılan sayfadan Client-Side Library ekliyoruz açılan sayfada provide kısmına unpkg seçeriz altında Choose specific files seçilir
+altında Files dist browser signalr.js ve signalr.min.js dosyaları seçilir install denir bu paket wwwroot altında lib klasörü altında microsoft klasörü altında signalr klasörü altında dist altında browser altındadır bu js dosyaları
+
+Çoklu Dil desteği içi startup için aşağıdaki kodu ekliyoruz
+
+/* çoklu dile desteği için bilgileri Resources klasörü içinde ara diyoruz*/
+            services.AddLocalization(opt =>
+            {
+                opt.ResourcesPath = "Resources";
+            });
+
+  services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
+  /* buraya desteklenen dilleri dizi olarak giriyoruz*/
+            var suppurtedCultures = new[] { "en", "fr", "es", "tr", "gr" };
+
+   /* site ayağa kalktığında hangi dil ile ayağa kalsın onu belirtiyoruz*/
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(suppurtedCultures[3]).AddSupportedCultures(suppurtedCultures).AddSupportedUICultures(suppurtedCultures);
+app.UseRequestLocalization(localizationOptions);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+﻿@model List<ContactUs>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var counter = 0;
+}
+
+<style>
+    tr:nth-child(odd) {
+        background: #b0c4de;
+    }
+    tr:nth-child(even) {
+        background: #ffffe0;
+    }
+    .table thead tr th {
+        background: #f08080;
+        color:white !important;
+    }
+ 
+   
+</style>
+
+<h1>Bize Ulaşın Mesajlar</h1>
+<table class="table table-bordered table table-hover text-center">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Gönderen</th>
+            <th>Konu</th>
+            <th>Mesaj İçeriği</th>
+            <th>Tarih</th>
+            <th>Sil</th>
+            @*<th>Mesajı Aç</th>*@
+        </tr>
+    </thead>
+    <tbody>
+      @foreach(var item in Model)
+      {
+          counter++;
+          <tr>
+              <td>@counter</td>
+              <td>@item.Name</td>
+              <td>@item.Subject</td>
+              <td>@item.MesajBody</td>
+              <td>@item.MesajDate.ToString("dd-MM-yyyy"))</td>
+              <td><a href="/Admin/ContactUs/DeleteContact/@item.ContactUsID"class="btn btn-outline-danger">Sil</a></td>
+              @*<td><a href="" class="btn btn-outline-dark">Mesajı Aç</a></td>*@
+          </tr>
+      }
+    </tbody>
+</table>
+

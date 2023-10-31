@@ -1,0 +1,47 @@
+﻿@model TraversalCoreProje.Models.UserRegisterViewModel
+@{
+    ViewData["Title"] = "UpdateUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Kullanıcı Güncelleme Sayfası</h1>
+<form method="post" class="signin-form">
+    <div class="form-input">
+        <label>Adınız</label>
+        <input type="text" asp-for="Name" /> <!--asp-for içine models altındaki propertyden gelen name ifadesi yazıyoruz-->
+        <span asp-validation-for="Name" class="text text-danger"></span>  <!--validationdan gelen mesajları göstermek için ekledik-->
+    </div>
+    <div class="form-input">
+        <label>Soyadınız</label>
+        <input type="text" asp-for="Surname" /> <!--asp-for içine models altındaki propertyden gelen surname ifadesini yazıyoruz-->
+        <span asp-validation-for="Surname" class="text text-danger"></span>  <!--validationdan gelen mesajları göstermek için ekledik-->
+    </div>
+    <div class="form-input">
+        <label>Email</label>
+        <input type="email" asp-for="Mail" /> <!--asp-for içine models altındaki propertyden gelen surname ifadesini yazıyoruz-->
+        <span asp-validation-for="Mail" class="text text-danger"></span>  <!--validationdan gelen mesajları göstermek için ekledik-->
+    </div>
+    <div class="form-input">
+        <label>Kullanıcı Adınız</label>
+        <input type="text" asp-for="Username" /> <!--asp-for içine models altındaki propertyden gelen username ifadesini yazıyoruz-->
+        <span asp-validation-for="Username" class="text text-danger"></span>  <!--validationdan gelen mesajları göstermek için ekledik-->
+    </div>
+    <div class="form-input">
+        <label>Şifreniz</label>
+        <input type="password" asp-for="Password" />
+        <span asp-validation-for="Password" class="text text-danger"></span>  <!--validationdan gelen mesajları göstermek için ekledik-->
+    </div>
+    <div class="form-input">
+        <label>Şifre Tekrar</label>
+        <input type="password" asp-for="ConfirmPassword" />
+        <span asp-validation-for="ConfirmPassword" class="text text-danger"></span>  <!--validationdan gelen mesajları göstermek için ekledik-->
+    </div>
+    <!--şifreler belirli kriterlere uymaz ise mesaj verdirmek için bu div elementini açtık-->
+    <!--şifre mesajlarını ingilizce veriyor türkçe olması için model klasörü içine CustomerIdentityValidator diye class oluşturduk-->
+    <div class="text text-danger" asp-validation-summary="ModelOnly">
+
+    </div>
+
+    <button class="btn">Kullanıcı Güncelle</button>
+</form>
+

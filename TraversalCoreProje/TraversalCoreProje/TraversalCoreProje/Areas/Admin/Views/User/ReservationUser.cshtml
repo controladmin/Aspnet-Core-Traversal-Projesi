@@ -1,0 +1,46 @@
+﻿@using EntityLayer.Concreate
+
+@model List<Reservation>
+@{
+    ViewData["Title"] = "ReservationUser";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<h1>Kullanıcı Geçmiş Rezervasyonları</h1>
+@if (Model.Count > 0)
+{
+    <table class="table table-bordered table table-hover">
+        <thead style="background: #daa520">
+            <tr>
+                <td>#</td>
+                @*<td>Ad Soyad</td>*@
+                <td>Rota</td>
+                <td>Kişi Sayısı</td>
+                <td>Tarih</td>
+                <td>Detaylar</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                count += 1;
+                <tr>
+                    <td>@count</td>
+                    @*Username hata veriyor include edilmesi gerek o yüzden kapatıldı*@
+                    @*<td>@item.AppUser.Name @item.AppUser.Surname</td>*@
+                    <td>@item.Destination.City</td>
+                    <td>@item.PersonCount</td>
+                    <td>@(((DateTime)item.ReservationDate).ToString("dd-MM-yyyy"))</td>
+                    <td><a href="" class="btn btn-outline-secondary">Detaylar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+<div>
+    <span class="text-danger">Geçmiş Rezarvasyon Bulunmamaktadır</span>
+</div>
+}

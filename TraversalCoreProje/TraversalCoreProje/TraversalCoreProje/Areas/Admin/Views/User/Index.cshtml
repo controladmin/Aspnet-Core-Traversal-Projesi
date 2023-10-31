@@ -1,0 +1,61 @@
+﻿@using EntityLayer.Concreate
+@model List<AppUser>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 0;
+}
+
+<style>
+    tr:nth-child(odd) {
+        background: #fdf5e6;
+    }
+
+    tr:nth-child(even) {
+        background: #ffe4e1;
+    }
+
+    .table thead tr th {
+        background: #800080;
+        color: white !important;
+    }
+</style>
+
+<h1>Kullanıcı Listesi</h1>
+
+<table class="table table-bordered table table-hover text-center">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Ad Soyad</th>
+            <th>Kullanıcı Adı</th>
+            <th>Mail</th>
+            <th>Telefon</th>
+            @*<th>Yorumlar</th>*@
+            <th>Tur Geçmişi</th>
+            <th>Düzenle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+        <tr>
+            @*id yerine sayac yazdık silinen kullanıcılar olunca sıra numarasında atlama olmasın diye sırayla gitsin diye*@
+            @{ sayac = sayac + 1;}
+            <td>@sayac</td>
+            <td>@item.Name @item.Surname</td>
+            <td>@item.UserName</td>
+            <td>@item.Email</td>
+            <td>@item.PhoneNumber</td>
+            @*<td><a href="/Admin/User/CommentUser/@item.Id" class="btn btn-outline-warning ">Yorumlar</a></td>*@
+            <td><a href="/Admin/User/ReservationUser/@item.Id" class="btn btn-outline-secondary ">Tur Geçmişi</a></td>
+            <td><a href="/Admin/User/UpdateUser/@item.Id" class="btn btn-outline-primary ">Güncelle</a></td>
+            <td><a href="/Admin/User/DeleteUser/@item.Id" class="btn btn-outline-danger ">Sil</a></td>
+
+        </tr>
+        }
+    </tbody>
+</table> 
+<a href="/Login/SignUp/" class="btn btn-outline-dark">Yeni Kullanıcı Kaydı</a>
+

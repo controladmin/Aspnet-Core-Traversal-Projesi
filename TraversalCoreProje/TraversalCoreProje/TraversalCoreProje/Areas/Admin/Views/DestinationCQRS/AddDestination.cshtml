@@ -1,0 +1,28 @@
+﻿@model CreateDestinationCommand
+@{
+    ViewData["Title"] = "AddDestination";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Yeni Tur Rotası Ekleme Sayfası</h1>
+<br />
+<form method="post">
+    <label>Şehir Adı</label>
+    <input type="text" asp-for="City" class="form-control" />
+    <span asp-validation-for="City" class="text-danger"></span>
+    <br />
+    <label>Konaklama Süresi</label>
+    <input type="text" asp-for="DayNight" class="form-control" />
+    <span asp-validation-for="DayNight" class="text-danger"></span>
+    <br />
+    <label>Fiyat</label>
+    <input type="text" asp-for="Price" class="form-control" />
+    <span asp-validation-for="Price" class="text-danger"></span>
+    <br />
+    <label>Kişi Sayısı</label>
+    <input type="text" asp-for="Capasity" class="form-control" />
+    <span asp-validation-for="Capasity" class="text-danger"></span>
+    <br />
+    <button class="btn btn-outline-success">Tur Rotasını Kaydet</button>
+</form>
+

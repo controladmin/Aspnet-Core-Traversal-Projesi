@@ -1,0 +1,43 @@
+﻿@model EntityLayer.Concreate.Guide
+@{
+    ViewData["Title"] = "UpdateGuide";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Rehber Güncelleme Sayfası</h1>
+
+<form asp-action="UpdateGuide" asp-controller="Guide" method="post">
+    <div class="form-group">
+        @Html.Label("Ad Soyad")
+        <input type="text" asp-for="Name" class="form-control" required=""/>
+        @*validation işlemi için yapıyoruz*@
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Rehber Fotoğraf")
+        <input type="text" asp-for="Image" class="form-control" />
+        @*validation işlemi için yapıyoruz*@
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Instegram Url")
+        <input type="text" asp-for="InstegramUrl" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("TwitterUrl")
+        <input type="text" asp-for="TwitterUrl" class="form-control" />
+    </div>
+    <br />
+    <div class="form-group">
+        @Html.Label("Açıklama")
+        <textarea cols="30" rows="5" class="form-control" asp-for="Description" required=""></textarea>
+        @*validation işlemi için yapıyoruz*@
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <br />
+    <button class="btn btn-outline-primary form-control">Güncelle</button>
+</form>
+

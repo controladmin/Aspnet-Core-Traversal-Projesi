@@ -1,0 +1,58 @@
+﻿@model List<VisitorViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int counter = 0;
+}
+
+
+<style>
+    tr:nth-child(odd) {
+        background: #dcdcdc;
+    }
+
+    tr:nth-child(even) {
+        background: #f8f8ff;
+    }
+
+    .table thead tr th {
+        background: #ff8c00;
+        color: white !important;
+    }
+
+</style>
+
+<h1>Api Ziyaretçi Listesi</h1>
+<br />
+<table class="table table-bordered table table-hover text-center">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Şehir</th>
+            <th>Ülke</th>
+            <th>Mail</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            counter++;
+        <tr>
+            <td>@counter</td>
+            <td>@item.Name</td>
+            <td>@item.Surname</td>
+            <td>@item.City</td>
+            <td>@item.Country</td>
+            <td>@item.Mail</td>
+            <td><a href="/Admin/VisitorApi/DeleteVisitor/@item.VisitorID/" class="btn btn-outline-danger">Sil</a></td>
+            <td><a href="/Admin/VisitorApi/UpdateVisitor/@item.VisitorID/" class="btn btn-outline-info">Güncelle</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/Admin/VisitorApi/AddVisitor/" class="btn btn-outline-secondary">Yeni Ziyaretçi Girişi</a>
+
